@@ -45,9 +45,22 @@ float Daliscore(int naa1, float **distmat1, float **distmat2, ALIGN *align) {
       dist2 = distmat2[jaa1][jaa2];
       dist_ave = (dist1 + dist2)/2.0;
 
-      align->local_Dali[iaa1] += 
-	(Dali_theteE - fabs(dist1-dist2)/dist_ave)
-	* exp(-dist_ave*dist_ave/Dali_alpha);
+      // prepare for atom-clashed structure
+      // without this, 0-division occurs when dist1 = dist2 = 0
+      if (dist_ave > 0.01 ){
+	      align->local_Dali[iaa1] +=
+		(Dali_theteE - fabs(dist1-dist2)/dist_ave)
+		* exp(-dist_ave*dist_ave/Dali_alpha);
+      }else{
+	align->local_Dali[iaa1] += Dali_theteE;
+      }
+      // from scorefun95 in filter95fitz.f of DaliLite v4
+      //
+      // if(r.gt.0.01) then
+      //    scorefun95=(0.20-abs(s)/r)*exp(-r*r/400.0)
+      // else
+      //    scorefun95=0.20
+      // end if  
     }
     Daliscore += align->local_Dali[iaa1];
     if(align->local_Dali[iaa1] < 0) align->local_Dali[iaa1] = EPS;
