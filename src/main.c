@@ -7,12 +7,21 @@ INPUT_DATA input;
 clock_t time_init, time_end, time_tmp;
 
 void usage(void);
+int mican(char pdb1[], char pdb2[]);
+
 
 int main(int argc, char *argv[]) {
+  mican(argv[1],argv[2]);
+}
 
+int mican(char pdb1[], char pdb2[]){
+
+
+  strcpy(input.file_t, pdb1);
+  strcpy(input.file_q, pdb2);
   /**  time count  **/
   time_init = clock();
-
+  
   /*******************************/
   /*     default parameters      */
   /*******************************/
@@ -59,9 +68,9 @@ int main(int argc, char *argv[]) {
   /****************************/
   /*  GET OPTION & FILENAMES  */
   /****************************/
-  if (getopt(argc, argv) == FALSE) {
-    usage();
-  }
+  //  if (getopt(argc, argv) == FALSE) {
+  //    usage();
+  //  }
 
   /***************************/
   /*     CHECK ARGUMENTS     */
