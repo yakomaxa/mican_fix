@@ -7,14 +7,14 @@ INPUT_DATA input;
 clock_t time_init, time_end, time_tmp;
 
 void usage(void);
-int mican(char pdb1[], char pdb2[]);
+int mican(const char *pdb1, const char *pdb2);
 
 
 int main(int argc, char *argv[]) {
   mican(argv[1],argv[2]);
 }
 
-int mican(char pdb1[], char pdb2[]){
+int mican(const char *pdb1,const char *pdb2){
 
 
   strcpy(input.file_t, pdb1);
